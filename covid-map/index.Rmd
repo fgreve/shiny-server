@@ -1,5 +1,5 @@
 ---
-title: "Covid-19 interactive map of infected people using R"
+title: "Covid-19 interactive map using R"
 author: "Fernando Greve"
 date: "2/6/2020"
 output: html_document
@@ -7,12 +7,18 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(geojsonio)
+library(dplyr) 
+
+token = "pk.eyJ1IjoiZmdyZXZlIiwiYSI6ImNrYXpmMmI3dzA4Y3Yyc3AweW95eTR5azkifQ.Bou947cDslixneZpDKrImA"
+
 ```
+
 
 ```{r}
 map = "https://raw.githubusercontent.com/fgreve/d3-comunas-cl/master/data/comunas.json"
-stgo <- geojsonio::geojson_read(map, what = "sp")
-class(stgo)
+stgo <- geojson_read(map, what = "sp")
 ```
 
 
@@ -45,9 +51,6 @@ data = stgo@data
 ```
 
 ```{r}
-library(dplyr) # tidyverse
-library(tidyr) # gather()
-
 minsal = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto1/Covid-19.csv", 
               check.names = FALSE,
               encoding="UTF-8") %>% 
@@ -55,12 +58,9 @@ minsal = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/ma
 
 ```
 
-
-
 ```{r}
 stgo = sp::merge(stgo, minsal, by = "id")
 ```
-
 
 ```{r}
 class(stgo)
@@ -74,7 +74,6 @@ stgo <- stgo[!is.na(stgo@data$Region),]
 stgo <- stgo[stgo@data$Region=="Metropolitana",]
 ```
 
-
 ```{r}
 no_stgo = c("Tiltil","Lampa","Colina","San Jose de Maipo","Pirque","Paine","Buin","Alhue","Melipilla","San Pedro","Maria Pinto","Curacavi","Penaflor","Calera de Tango","Padre Hurtado","El Monte","Talagante","Isla de Maipo","Lo Barnechea")
 
@@ -82,25 +81,21 @@ stgo = stgo[!(stgo@data$Comuna %in% no_stgo),]
 
 ```
 
-
 ```{r}
 data = stgo@data
 ```
 
-
 ```{r}
 library(leaflet)
 m <- leaflet(stgo) %>%
-  setView(lng = -70.64724, lat = -33.47269, zoom = 11) %>%
+  setView(lng = -70.64724, lat = -33.47269, zoom = 10) %>%
   addProviderTiles("MapBox", options = providerTileOptions(
     id = "mapbox.light",
-    accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN')))
+    accessToken = token))
 
 m %>% addPolygons()
 
 ```
-
-
 
 ```{r}
 m %>% addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
@@ -177,12 +172,6 @@ m
 m %>% addLegend(pal = pal, values = ~Tasa, opacity = 0.7, title = NULL,
   position = "bottomright")
 ```
-
-
-
-
-
-
 
 
 
