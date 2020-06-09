@@ -10,6 +10,8 @@ library(shinyWidgets)
 library(shinythemes) 
 library(shinydashboard)
 
+options(encoding = "UTF-8")
+
 token = "pk.eyJ1IjoiZmdyZXZlIiwiYSI6ImNrYXpmMmI3dzA4Y3Yyc3AweW95eTR5azkifQ.Bou947cDslixneZpDKrImA"
 stgo <- readOGR("https://raw.githubusercontent.com/fgreve/d3-comunas-cl/master/data/comunas.json")
 class(stgo)
