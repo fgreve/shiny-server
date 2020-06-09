@@ -1,3 +1,14 @@
+library(rgdal)
+library(dplyr)
+library(leaflet)
+library(ggplot2)
+library(plotly)
+library(tidyr)
+library(dygraphs)
+library(shiny)
+library(shinyWidgets)
+library(shinythemes) 
+library(shinydashboard)
 
 ui <- dashboardPage(
     dashboardHeader(title = "Covid-19 Chile" ),
