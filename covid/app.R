@@ -10,7 +10,7 @@ library(shinyWidgets)
 library(shinythemes) 
 library(shinydashboard)
 
-ui <- dashboardPage(
+ui <- shinydashboard::dashboardPage(
     dashboardHeader(title = "Covid-19 Chile" ),
     #sidebar <- dashboardSidebar(sidebarMenu(), disable = TRUE),
     
@@ -56,7 +56,7 @@ ui <- dashboardPage(
 )
                  
 
-server = function(input, output, session){
+server = function(input, output){
     output$mymap <- renderLeaflet({m})
     
     output$plot <- renderPlotly({p})
