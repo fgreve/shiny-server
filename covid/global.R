@@ -16,9 +16,9 @@ token = "pk.eyJ1IjoiZmdyZXZlIiwiYSI6ImNrYXpmMmI3dzA4Y3Yyc3AweW95eTR5azkifQ.Bou94
 stgo <- readOGR("https://raw.githubusercontent.com/fgreve/d3-comunas-cl/master/data/comunas.json")
 class(stgo)
 
-minsal = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto1/Covid-19.csv", 
-                  check.names = FALSE,
-                  encoding="UTF-8") %>% 
+#"https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto1/Covid-19.csv"
+# encoding="UTF-8"
+minsal = read.csv("Covid-19.csv", check.names = FALSE) %>% 
     rename(cod_reg="Codigo region",id="Codigo comuna") %>%
     filter(Region == "Metropolitana")
 
@@ -66,9 +66,9 @@ df = minsal %>% select(Comuna,Tasa)
 df$Comuna <- factor(df$Comuna, levels = unique(df$Comuna)[order(df$Tasa, decreasing = FALSE)])
 p = df %>% plot_ly(x = ~Comuna, y = ~Tasa, type = "bar", name = 'Contagios')
 
+# "https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto5/TotalesNacionales.csv"
 # TotalesNacionales
-producto5 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto5/TotalesNacionales.csv", 
-                           check.names = FALSE, encoding="UTF-8")
+producto5 = read.csv("TotalesNacionales.csv", check.names = FALSE)
 
 TotalesNacionales = producto5 %>% gather("Date","Valor",-Fecha) %>% spread(Fecha,Valor) %>% rename(Fecha = Date)
 TotalesNacionales$Fecha = as.Date(TotalesNacionales$Fecha)
@@ -76,8 +76,8 @@ TotalesNacionales <- xts(TotalesNacionales[,-1], order.by=as.Date(TotalesNaciona
 str(TotalesNacionales)
 
 # CasosRegionales
-producto3 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto3/CasosTotalesCumulativo.csv", 
-                     check.names = FALSE, encoding="UTF-8")
+# https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto3/CasosTotalesCumulativo.csv
+producto3 = read.csv("CasosTotalesCumulativo.csv", check.names = FALSE)
 
 CasosRegionales = producto3 %>% gather("Date","Valor",-Region) %>% spread(Region,Valor) %>% rename(Fecha = Date)
 CasosRegionales$Fecha = as.Date(CasosRegionales$Fecha)
