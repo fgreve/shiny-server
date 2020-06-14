@@ -4,13 +4,13 @@ function(input, output){
     
     output$plot <- renderPlotly({p})
     
-    output$dygraph <- renderDygraph({dygraph(time_series[,input$comuna], main = "Total Contagiados por comuna") %>% 
+    output$dygraph <- renderDygraph({dygraph(time_series[,input$comuna], main = "Casos Nuevos por Comuna") %>% 
             dyRangeSelector() %>% dyOptions(stackedGraph = TRUE) %>% dyRangeSelector(height = 20) %>%
             dyHighlight(highlightSeriesOpts = list(strokeWidth = 3))
         
     })
     
-    output$dygraph_nacional <- renderDygraph({dygraph(TotalesNacionales[,input$var_nacional], main = "Casos totales y Casos nuevos totales") %>% 
+    output$dygraph_nacional <- renderDygraph({dygraph(TotalesNacionales[,input$var_nacional], main = "Total Nacional") %>% 
             dyRangeSelector() %>% dyOptions(stackedGraph = TRUE) %>% dyRangeSelector(height = 20) %>%
             dyHighlight(highlightSeriesOpts = list(strokeWidth = 3))
     })

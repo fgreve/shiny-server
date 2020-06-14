@@ -10,7 +10,7 @@ library(shinyWidgets)
 library(shinythemes) 
 library(shinydashboard)
 
-options(encoding = "UTF-8")
+#options(encoding = "UTF-8")
 
 token = "pk.eyJ1IjoiZmdyZXZlIiwiYSI6ImNrYXpmMmI3dzA4Y3Yyc3AweW95eTR5azkifQ.Bou947cDslixneZpDKrImA"
 stgo <- readOGR("https://raw.githubusercontent.com/fgreve/d3-comunas-cl/master/data/comunas.json")
@@ -60,6 +60,9 @@ time_series = minsal %>%
 time_series$Fecha = as.Date(time_series$Fecha)
 time_series <- xts(time_series[,-1], order.by=as.Date(time_series[,1], "%Y-%m-%d"))
 str(time_series)
+time_series = diff(time_series, lag=1)
+time_series = last(time_series, 10)
+
 
 # barra de tasas de contagio por comuna
 df = minsal %>% select(Comuna,Tasa)
@@ -74,6 +77,8 @@ TotalesNacionales = producto5 %>% gather("Date","Valor",-Fecha) %>% spread(Fecha
 TotalesNacionales$Fecha = as.Date(TotalesNacionales$Fecha)
 TotalesNacionales <- xts(TotalesNacionales[,-1], order.by=as.Date(TotalesNacionales[,1], "%Y-%m-%d"))
 str(TotalesNacionales)
+names(TotalesNacionales)
+TotalesNacionales = last(TotalesNacionales, 30)
 
 # CasosRegionales
 producto3 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto3/CasosTotalesCumulativo.csv", 
