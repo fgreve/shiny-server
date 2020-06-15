@@ -23,7 +23,7 @@ dashboardPage(
         dygraphOutput("dygraph"),
         checkboxGroupInput("comuna","Elegir comunas",minsal$Comuna,selected=c("Nunoa","Independencia","Providencia","La Reina","Santiago"), inline = TRUE),
         
-        h2("Tasa de Contagios RM"),
+        h2("Tasa de Contagios RM (Tasa: casos confirmados por cada 100 mil habitantes)"),
         plotlyOutput("plot"),
         leafletOutput("mymap"),
         

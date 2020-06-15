@@ -90,4 +90,3 @@ CasosRegionales <- xts(CasosRegionales[,-1], order.by=as.Date(CasosRegionales[,1
 str(CasosRegionales)
 
 rm(stgo, CasosRegionales, df, labels, producto3, producto5)
-
