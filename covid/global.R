@@ -78,7 +78,13 @@ TotalesNacionales$Fecha = as.Date(TotalesNacionales$Fecha)
 TotalesNacionales <- xts(TotalesNacionales[,-1], order.by=as.Date(TotalesNacionales[,1], "%Y-%m-%d"))
 str(TotalesNacionales)
 names(TotalesNacionales)
+TotalesNacionales$"Fallecidos nuevos" = diff(TotalesNacionales$Fallecidos)
+
+names(TotalesNacionales) <- c("Casos activos", "Casos activos por FD", "Casos activos por FIS", "Casos nuevos con sintomas", "Casos nuevos sin sintomas", "Casos nuevos totales",
+"Casos recuperados", "Casos recuperados por FD", "Casos recuperados por FIS", "Casos totales", "Fallecidos", "Fallecidos nuevos")
+
 TotalesNacionales = last(TotalesNacionales, 30)
+
 
 # CasosRegionales
 producto3 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto3/CasosTotalesCumulativo.csv", 
@@ -89,4 +95,11 @@ CasosRegionales$Fecha = as.Date(CasosRegionales$Fecha)
 CasosRegionales <- xts(CasosRegionales[,-1], order.by=as.Date(CasosRegionales[,1], "%Y-%m-%d"))
 str(CasosRegionales)
 
-rm(stgo, CasosRegionales, df, labels, producto3, producto5)
+#CasosRegionales$"Nuevos metropolitana" = diff(CasosRegionales$"Metropolitana")
+
+CasosRegionales_diff = diff(CasosRegionales)
+CasosRegionales_diff = last(CasosRegionales_diff, 30)
+
+rm(stgo, df, labels, producto3, producto5)
+
+

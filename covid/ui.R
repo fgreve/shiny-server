@@ -15,13 +15,23 @@ dashboardPage(
         h2("Total Nacional"),
         h5('Ultima actualizacion'),
         textOutput("b"),
-        fluidRow(valueBoxOutput("value1"), valueBoxOutput("value2"), valueBoxOutput("value3")),
+        fluidRow(valueBoxOutput("value1"), valueBoxOutput("value6"), valueBoxOutput("value4")),
+        fluidRow(valueBoxOutput("value2"), valueBoxOutput("value5"), valueBoxOutput("value3")),
+        
         checkboxGroupInput("var_nacional","Elegir:", names(TotalesNacionales), selected="Casos nuevos totales", inline = TRUE),
         dygraphOutput("dygraph_nacional"),
         
-        h2("Casos Nuevos por Comuna"),
+        
+        h2("Casos Nuevos por Region"),
+        dygraphOutput("dygraph_region"),
+        checkboxGroupInput("region","Elegir region",names(CasosRegionales),names(CasosRegionales), inline = TRUE),
+        
+        
+        
+        h2("Casos Nuevos por Comuna R.M"),
         dygraphOutput("dygraph"),
         checkboxGroupInput("comuna","Elegir comunas",minsal$Comuna,selected=c("Nunoa","Independencia","Providencia","La Reina","Santiago"), inline = TRUE),
+        
         
         h2("Tasa de Contagios RM (Tasa: casos confirmados por cada 100 mil habitantes)"),
         plotlyOutput("plot"),
