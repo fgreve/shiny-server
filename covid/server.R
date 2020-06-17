@@ -33,21 +33,21 @@ function(input, output){
         valueBox(
             formatC(last(TotalesNacionales$"Casos totales", 1), format="d", big.mark='.'),
             names(TotalesNacionales$"Casos totales"),
-            color = "green")
+            color = "purple")
     })
     
     output$value3 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Fallecidos", 1), format="d", big.mark='.'),
             names(TotalesNacionales$"Fallecidos"),
-            color = "yellow")
+            color = "green")
     })
     
     output$value4 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Fallecidos nuevos", 1), format="d", big.mark='.'),
             names(TotalesNacionales$"Fallecidos nuevos"),
-            color = "blue")
+            color = "green")
     })
     
     
@@ -62,7 +62,7 @@ function(input, output){
         valueBox(
             formatC(last(CasosRegionales_diff$"Metropolitana", 1), format="d", big.mark='.'),
             "Casos nuevos R.Metropolitana",
-            color = "orange")
+            color = "red")
     })
     
     

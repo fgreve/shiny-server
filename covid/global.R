@@ -102,4 +102,3 @@ CasosRegionales_diff = last(CasosRegionales_diff, 30)
 
 rm(stgo, df, labels, producto3, producto5)
 
-
