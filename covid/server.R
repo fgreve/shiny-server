@@ -25,43 +25,49 @@ function(input, output){
     output$value1 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Casos nuevos totales", 1), format="d", big.mark='.'),
-            names(TotalesNacionales$"Casos nuevos totales"),
+            "Casos (nuevos)",
+            icon = icon("stats",lib='glyphicon'),
             color = "purple")   
     })
     
     output$value2 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Casos totales", 1), format="d", big.mark='.'),
-            names(TotalesNacionales$"Casos totales"),
+            "Total Casos (a la fecha)",
+            icon = icon("stats",lib='glyphicon'),
             color = "purple")
     })
     
     output$value3 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Fallecidos", 1), format="d", big.mark='.'),
-            names(TotalesNacionales$"Fallecidos"),
+            "Total Fallecidos (a la fecha)",
+            icon = icon("stats",lib='glyphicon'),
             color = "green")
     })
     
     output$value4 <- renderValueBox({
         valueBox(
             formatC(last(TotalesNacionales$"Fallecidos nuevos", 1), format="d", big.mark='.'),
-            names(TotalesNacionales$"Fallecidos nuevos"),
+            "Fallecidos (nuevos)",
+            icon = icon("stats",lib='glyphicon'),
             color = "green")
     })
     
     
     output$value5 <- renderValueBox({
         valueBox(
-            formatC(last(CasosRegionales$"Metropolitana", 1), format="d", big.mark='.'),
-            "Casos R.Metropolitana",
+            formatC(last(TotalesNacionales$"Casos totales", 1)-last(CasosRegionales$"Metropolitana", 1), format="d", big.mark='.'),
+            "Casos resto del pais (a la fecha)",
+            icon = icon("stats",lib='glyphicon'),
             color = "red")
     })
     
     output$value6 <- renderValueBox({
         valueBox(
-            formatC(last(CasosRegionales_diff$"Metropolitana", 1), format="d", big.mark='.'),
-            "Casos nuevos R.Metropolitana",
+            formatC(last(CasosRegionales$"Metropolitana", 1), format="d", big.mark='.'),
+            "Casos R.Metropolitana (a la fecha)",
+            icon = icon("stats",lib='glyphicon'),
             color = "red")
     })
     

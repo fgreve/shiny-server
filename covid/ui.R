@@ -15,8 +15,8 @@ dashboardPage(
         h2("Total Nacional"),
         h5('Ultima actualizacion'),
         textOutput("b"),
-        fluidRow(valueBoxOutput("value1"), valueBoxOutput("value6"), valueBoxOutput("value4")),
-        fluidRow(valueBoxOutput("value2"), valueBoxOutput("value5"), valueBoxOutput("value3")),
+        fluidRow(valueBoxOutput("value1"), valueBoxOutput("value4"), valueBoxOutput("value6")),
+        fluidRow(valueBoxOutput("value2"), valueBoxOutput("value3"), valueBoxOutput("value5")),
         
         checkboxGroupInput("var_nacional","Elegir:", names(TotalesNacionales), selected="Casos nuevos totales", inline = TRUE),
         dygraphOutput("dygraph_nacional"),
