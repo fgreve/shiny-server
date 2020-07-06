@@ -35,20 +35,21 @@ pal <- colorBin("YlOrRd", domain = stgo$Tasa, bins = bins)
 
 labels <- sprintf("<strong>%s</strong><br/>%g infected / population", stgo$Comuna, stgo$Tasa) %>% lapply(htmltools::HTML)
 
-m <- leaflet(stgo) %>%
-    setView(lng=-70.64724, lat=-33.47269, zoom=11) %>%
-    addProviderTiles("MapBox", options=providerTileOptions(id="mapbox.light", accessToken=token)) %>% 
-    addPolygons(
-        fillColor = ~pal(Tasa),
-        weight = 2,
-        opacity = 1,
-        color = "white",
-        dashArray = "3",
-        fillOpacity = 0.7,
-        highlight = highlightOptions(weight = 5, color = "#666", dashArray = "", fillOpacity = 0.7, bringToFront = TRUE),
-        label = labels,
-        labelOptions = labelOptions(style = list("font-weight"="normal", padding="3px 8px"), textsize="15px", direction = "auto")) %>% 
-    addLegend(pal = pal, values = ~Tasa, opacity = 0.7, title = NULL, position = "bottomright")
+#m <- leaflet(stgo) %>%
+#    setView(lng=-70.64724, lat=-33.47269, zoom=11) %>%
+#    addProviderTiles("MapBox", options=providerTileOptions(id="mapbox.light", accessToken=token)) %>% 
+#    addPolygons(
+#        fillColor = ~pal(Tasa),
+#        weight = 2,
+#        opacity = 1,
+#        color = "white",
+#        dashArray = "3",
+#        fillOpacity = 0.7,
+#        highlight = highlightOptions(weight = 5, color = "#666", dashArray = "", fillOpacity = 0.7, bringToFront = TRUE),
+#        label = labels,
+#        labelOptions = labelOptions(style = list("font-weight"="normal", padding="3px 8px"), textsize="15px", direction = "auto")) %>% 
+#    addLegend(pal = pal, values = ~Tasa, opacity = 0.7, title = NULL, position = "bottomright")
+
 
 # series de tiempo por comuna (Numero de contagios)
 library(xts)
@@ -76,15 +77,11 @@ producto5 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19
 TotalesNacionales = producto5 %>% gather("Date","Valor",-Fecha) %>% spread(Fecha,Valor) %>% rename(Fecha = Date)
 TotalesNacionales$Fecha = as.Date(TotalesNacionales$Fecha)
 TotalesNacionales <- xts(TotalesNacionales[,-1], order.by=as.Date(TotalesNacionales[,1], "%Y-%m-%d"))
-str(TotalesNacionales)
-names(TotalesNacionales)
+nombres = names(TotalesNacionales)
+
 TotalesNacionales$"Fallecidos nuevos" = diff(TotalesNacionales$Fallecidos)
-
-names(TotalesNacionales) <- c("Casos activos", "Casos activos por FD", "Casos activos por FIS", "Casos nuevos con sintomas", "Casos nuevos sin sintomas", "Casos nuevos totales",
-"Casos recuperados", "Casos recuperados por FD", "Casos recuperados por FIS", "Casos totales", "Fallecidos", "Fallecidos nuevos")
-
+names(TotalesNacionales) = c(nombres, "Fallecidos nuevos")
 TotalesNacionales = last(TotalesNacionales, 30)
-
 
 # CasosRegionales
 producto3 = read.csv("https://raw.githubusercontent.com/MinCiencia/Datos-COVID19/master/output/producto3/CasosTotalesCumulativo.csv", 
@@ -94,8 +91,6 @@ CasosRegionales = producto3 %>% gather("Date","Valor",-Region) %>% spread(Region
 CasosRegionales$Fecha = as.Date(CasosRegionales$Fecha)
 CasosRegionales <- xts(CasosRegionales[,-1], order.by=as.Date(CasosRegionales[,1], "%Y-%m-%d"))
 str(CasosRegionales)
-
-#CasosRegionales$"Nuevos metropolitana" = diff(CasosRegionales$"Metropolitana")
 
 CasosRegionales_diff = diff(CasosRegionales)
 CasosRegionales_diff = last(CasosRegionales_diff, 30)

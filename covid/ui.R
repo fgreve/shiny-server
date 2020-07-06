@@ -1,10 +1,9 @@
 
 dashboardPage(
     dashboardHeader(title = "Covid-19 Chile" ),
-    #sidebar <- dashboardSidebar(sidebarMenu(), disable = TRUE),
-    
+
     sidebar <- dashboardSidebar(collapsed = TRUE,
-                                sidebarMenu (
+                                sidebarMenu(
                                     menuItem("Fernando Greve", startExpanded = TRUE, menuSubItem(text = "fernandogreve.com", href = "https://fernandogreve.com/")))
     ),
     
@@ -35,7 +34,7 @@ dashboardPage(
         
         h2("Tasa de Contagios RM (Tasa: casos confirmados por cada 100 mil habitantes)"),
         plotlyOutput("plot"),
-        leafletOutput("mymap"),
+        #leafletOutput("mymap"),
         
         tags$footer(a(href="http://www.fernandogreve.com", target="_blank", "www.fernandogreve.com"))
         

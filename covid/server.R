@@ -1,6 +1,6 @@
 
 function(input, output){
-    output$mymap <- renderLeaflet({m})
+    #output$mymap <- renderLeaflet({m})
     
     output$plot <- renderPlotly({p})
     
